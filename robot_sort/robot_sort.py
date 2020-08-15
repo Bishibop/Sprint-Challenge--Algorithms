@@ -37,10 +37,16 @@ Thoughts:
         never put it in the last position. Just brought it right back and
         let the correct up terminal condition take it.
 
-Logic:
+Logic: a sort of bi-directional bubble sort
+
     Use the light to indicate going UP or DOWN.
     If going UP, swap None and when value in list greater than in hand
     If going DOWN, only swap if value is less than in hand
+        If you encounter a None while going DOWN, swap it one position
+        UP, but only if it's not going to be in the last position. That
+        would break the original terminating condition. In this case, just
+        bring it back to it's original position. This means we're on the
+        last iteration, and it will be picked up on the next pass UP.
     Toggle the light when you hit an edge
     Stop when you reach the last position and detect a None. Do not swap.
 
@@ -146,6 +152,7 @@ class SortingRobot:
         """
         return self._light == "ON"
 
+    # WORKING STRETCH VERSION
     def sort(self):
         """
         Sort the robot's list.
@@ -155,10 +162,17 @@ class SortingRobot:
 
             # Going down
             if self.light_is_on():
+
                 # Swaping logic
                 if self.compare_item() is None:
-                    # Don't pick it up. None only goes UP.
-                    pass
+                    self.swap_item()
+                    self.move_right()
+                    if self.can_move_right():
+                        self.swap_item()
+                    else:
+                        pass
+                    self.move_left()
+                    self.swap_item()
                 elif self.compare_item() == 1:
                     self.swap_item()
                 elif self.compare_item() == 0:
@@ -175,8 +189,10 @@ class SortingRobot:
                 else:
                     # We can't move left. Flip the light to start moving up.
                     self.set_light_off()
+
             # Going up
             else:
+
                 # Swaping logic
                 if self.compare_item() is None:
                     if self.can_move_right():
@@ -203,7 +219,7 @@ class SortingRobot:
                     self.set_light_on()
 
 
-    # WORKING VERSION
+    # WORKING NON-STRETCH VERSION
     #  def sort(self):
     #      """
     #      Sort the robot's list.
