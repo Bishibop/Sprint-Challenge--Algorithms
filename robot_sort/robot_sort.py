@@ -30,7 +30,22 @@ Thoughts:
 
     OFF means going UP
 
+    What if we incremented it going down too? Get the real number of
+    iterations? Since we're doing a sort of bouncing bubble sort.
 
+        This would change the terminal condition. Would work if we just
+        never put it in the last position. Just brought it right back and
+        let the correct up terminal condition take it.
+
+Logic:
+    Use the light to indicate going UP or DOWN.
+    If going UP, swap None and when value in list greater than in hand
+    If going DOWN, only swap if value is less than in hand
+    Toggle the light when you hit an edge
+    Stop when you reach the last position and detect a None. Do not swap.
+
+    This method uses the location of the None as an implicit iteration
+    counter. We 'increment' it once every pass up the list.
 
 """
 
@@ -186,6 +201,64 @@ class SortingRobot:
                 else:
                     # We can't move right. Flip the light to start moving down.
                     self.set_light_on()
+
+
+    # WORKING VERSION
+    #  def sort(self):
+    #      """
+    #      Sort the robot's list.
+    #      """
+    #      # Fill this out
+    #      while True:
+    #
+    #          # Going down
+    #          if self.light_is_on():
+    #              # Swaping logic
+    #              if self.compare_item() is None:
+    #                  # Don't pick it up. None only goes UP.
+    #                  pass
+    #              elif self.compare_item() == 1:
+    #                  self.swap_item()
+    #              elif self.compare_item() == 0:
+    #                  # Don't swap
+    #                  pass
+    #              else:  # self.compare_item() == -1:
+    #                  # Don't swap
+    #                  pass
+    #
+    #              # Moving DOWN logic
+    #              if self.move_left():
+    #                  # We can move left. We're done with this iteration.
+    #                  pass
+    #              else:
+    #                  # We can't move left. Flip the light to start moving up.
+    #                  self.set_light_off()
+    #          # Going up
+    #          else:
+    #              # Swaping logic
+    #              if self.compare_item() is None:
+    #                  if self.can_move_right():
+    #                      self.swap_item()
+    #                  # Terminal cond: moving up, see a None, can't move right
+    #                  # Don't swap. None can never be in the last position
+    #                  else:
+    #                      return
+    #              elif self.compare_item() == 1:
+    #                  # Don't swap
+    #                  pass
+    #              elif self.compare_item() == 0:
+    #                  # Don't swap
+    #                  pass
+    #              else:  # self.compare_item() == -1:
+    #                  self.swap_item()
+    #
+    #              # Moving UP logic
+    #              if self.move_right():
+    #                  # We can move right. We're done with this iteration.
+    #                  pass
+    #              else:
+    #                  # We can't move right. Flip the light to start moving down.
+    #                  self.set_light_on()
 
 
 if __name__ == "__main__":
